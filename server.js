@@ -18,7 +18,25 @@ const fileOptions = { root: __dirname + "/Client" };
 app.use(express.static(fileOptions.root));
 app.use(express.json());
 
-
+app.use((req, res, next) => {
+	res.setHeader("Access-Control-Allow-Origin", "*");
+	res.setHeader("Access-Control-Allow-Credentials", true);
+	res.setHeader(
+		"Access-Control-Allow-Headers",
+		"*, Origin, set-cookie, X-Requested-With, Content-Type, Accept, Authorization, append, delete,entries,foreach,get,has,keys,set,values"
+	);
+	res.setHeader("Access-Control-Max-Age", "86400");
+	res.setHeader(
+		"Access-Control-Allow-Methods",
+		"GET, POST, PUT, PATCH, DELETE, OPTIONS"
+	);
+	res.setHeader("Access-Control-Max-Age", 86400);
+	if (req.method === "OPTIONS") {
+		return res.status(200).end();
+	} else {
+		next();
+	}
+});
 
 app.use('/api/project', projectsRoutes);
 app.use('/api/department', departmentRoutes);
@@ -55,7 +73,20 @@ app.get(/^\/(?!(api)).*/, async function (req, res, next) {
 	//res.sendFile("main.html", fileOptions)
 });
 
+// SPECIAL ERROR HANDLING MIDDLEWARE FUNCTION - only runs when an error is thrown
+app.use((error, req, res, next) => {
+	if (req.file) {
+		fs.unlink(req.file.path, (err) => {
+			console.log(err);
+		});
+	}
 
+	if (res.headerSent) {
+		return next(error);
+	}
+	res.status(error.code || 500); // 500 means something went wrong on the server
+	res.json({ message: error.message || "THERE WAS AN ERROR" });
+});
 
 
 app.listen(port, () => {
@@ -64,49 +95,3 @@ app.listen(port, () => {
 
 
 
-
-/*
-app.get("/", function(req, res){
-	const clientIpAddr = req.socket.remoteAddress;
-    const cookies = parseCookies(req.headers.cookie);
-
-	const query = 
-		'SELECT c.ip_address, c.auth_token, e.employee_id \
-		FROM employees e, cookies c \
-        join employee_cookie ec on ec.cookie_token = c.auth_token \
-		WHERE e.employee_id = ec.eid AND c.auth_token = ? AND c.ip_address = ?'
-	
-	const sqlStatement = {
-        sql: query,
-        values: [cookies,clientIpAddr]
-    }
-
-	const results = msql.query(sqlStatement);
-
-	let employeeId, authToken, ipaddr;
-	
-    results.then((rows) => {
-        employeeId = rows[0].employee_id;
-        authToken = rows[0].auth_token;
-        ipaddr = rows[0].ip_address;
-
-    });
-
-	// if(employeeId) {
-	// 	res.sendFile("main.html");
-	// } else {
-	// 	res.sendFile("login.html", fileOptions);
-	// }
-
-	res.sendFile("index.html");
-
-});
-
-app.use('/project', projectsRoutes);
-app.use('/department', departmentRoutes);
-app.use('/employee', employeeRoutes);
-
-server.listen(port, function(){
-	console.log('listening on *:' + port);
-});
-*/
