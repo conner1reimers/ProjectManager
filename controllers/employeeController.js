@@ -59,7 +59,7 @@ const account = (req, res, next) => {
 				throw "employee nodejs error"
 			}
 			
-		}).catch(err => { res.status(401).json({ msg: "Failed to get account data." }); });
+		}).catch(err => { return next({ msg: "Failed to get account data." }); });
 
 		const results3 = mysql.query(sqlStatement3);
 		results3.then((rows) => {
@@ -75,10 +75,10 @@ const account = (req, res, next) => {
 			} else {
 				throw "department nodejs error"
 			}
-		}).catch(err => { res.status(401).json({ msg: "Failed to get account data." }); });
+		}).catch(err => { return next({ msg: "Failed to get account data." }); });
 	} catch(e) {
 		console
-    	res.status(401).json({ msg: "Failed to get account data." });
+    	return next({ msg: "Failed to get account data." });
 	}
 };
 
@@ -99,7 +99,7 @@ const createEmployee = async (req, res, next) => {
 	const managerResult = mysql.query(managerSQL);
 	managerResult.then((rows) => {
 		if(rows[0].access != "manager") {
-			res.status(401).json({ msg: "You are not authorized" });
+			return next({ msg: "You are not authorized" });
 		}
 	});
 
@@ -113,7 +113,7 @@ const createEmployee = async (req, res, next) => {
 	
 	mysql.beginTransaction(function(err) {
 			try {
-				if(err) res.status(401).json({ msg: "Database connection failure" });
+				if(err) return next({ msg: "Database connection failure" });
 		
 				const employeeResults = mysql.query(employeeSQL);
 				employeeResults.then((rows) => {
@@ -177,11 +177,11 @@ const createEmployee = async (req, res, next) => {
 				.catch((err) => {
 					console.log(err);
 					mysql.rollback();
-					res.status(401).json({ msg: "Error adding employee" });
+					return next({ msg: "Error adding employee" });
 				});
 			} catch (error) {
 				mysql.rollback();
-				res.status(401).json({ msg: "Error adding employee" });
+				return next({ msg: "Error adding employee" });
 			}
 	});
 }
@@ -199,7 +199,7 @@ const auth = (req, res, next) => {
 	let authError = false;
 	mysql.beginTransaction(function(err) {
 
-		if(err) res.status(401).json({ msg: "Database connection failure" });
+		if(err) return next({ msg: "Database connection failure" });
 
 		const results = mysql.query(sqlStatement);
 		results.then((rows) => {
@@ -245,7 +245,7 @@ const auth = (req, res, next) => {
 		.catch((err) => {
 			console.log(err);
 			mysql.rollback();
-			res.status(401).json({ msg: "login failed" });
+			return next({ msg: "login failed" });
 		});
 	});
 
@@ -380,10 +380,10 @@ const deleteEmployee = (req, res, next) => {
 	.then((rows) => {
 		if(rows.length >= 1) {
 			if(rows[0].access != "manager" && rows[0].access != "overseer") {
-				res.status(401).json({ msg: "Not authorized to delete employee" });	
+				return next({ msg: "Not authorized to delete employee" });	
 			}
 		} else {
-			res.status(401).json({ msg: "Unable to verify authority" });	
+			return next({ msg: "Unable to verify authority" });	
 		}
 	});
 
@@ -397,7 +397,7 @@ const deleteEmployee = (req, res, next) => {
 				if(rows.affectedRows != 0) {
 					res.status(200).json({});
 				} else {
-					res.status(401).json({ msg: "error deleting employee from department" });
+					return next({ msg: "error deleting employee from department" });
 				}
 			});
 	} else {
@@ -411,7 +411,7 @@ const deleteEmployee = (req, res, next) => {
 			if(rows.affectedRows != 0) {
 				res.status(200).json({});
 			} else {
-				res.status(401).json({ msg: "error deleting employee" });
+				return next({ msg: "error deleting employee" });
 			}
 		});
 	}
@@ -459,7 +459,7 @@ const singleEmployee = (req, res, next) => {
 			})
 
 	} catch(err) {
-		res.status(401).json({ msg: err });
+		return next({ msg: err });
 	}
 
 }
@@ -475,9 +475,9 @@ const updateEmployeeManager = (req, res, next) => {
 
 	mysql.query(managerSqlStatement)
 		.then((rows) => {
-			if(!rows[0]) res.status(401).json({msg: "error getting employee"})
+			if(!rows[0]) return next({msg: "error getting employee"})
 			else if(rows[0].access != "manager" && rows[0].access != "overseer") {
-				res.status(401).json({msg: "You do not have access to update this employee"})
+				return next({msg: "You do not have access to update this employee"})
 			} 
 		})
 	
@@ -522,7 +522,7 @@ const updateEmployeeManager = (req, res, next) => {
 	mysql.beginTransaction(function(err) {
 		try {
 		
-			if(err) res.status(401).json({ msg: "Database connection failure" });
+			if(err) return next({ msg: "Database connection failure" });
 
 			if(employeeQuerySql.length > 43 && worksInQuerySql.length > 46) {
 				const results = mysql.query(employeeUpdateSql);
@@ -545,7 +545,7 @@ const updateEmployeeManager = (req, res, next) => {
 				})
 				.catch((errr) => {
 					mysql.rollback();
-					res.status(401).json({ msg: errr });
+					return next({ msg: errr });
 				});
 			} else if(employeeQuerySql.length > 43) {
 				mysql.query(employeeUpdateSql)
@@ -559,7 +559,7 @@ const updateEmployeeManager = (req, res, next) => {
 					})
 					.catch((errr) => {
 						mysql.rollback();
-						res.status(401).json({ msg: errr });
+						return next({ msg: errr });
 					});
 				
 			} else if (worksInQuerySql.length > 46) {
@@ -570,12 +570,12 @@ const updateEmployeeManager = (req, res, next) => {
 							res.status(200).json({});
 						} else {
 							mysql.rollback();
-							res.status(401).json({ msg: "error updating employee" });
+							return next({ msg: "error updating employee" });
 						}
 					})
 					.catch((errr) => {
 						mysql.rollback();
-						res.status(401).json({ msg: errr });
+						return next({ msg: errr });
 					});
 
 			}
@@ -585,7 +585,7 @@ const updateEmployeeManager = (req, res, next) => {
 	
 		} catch (error) {
 			mysql.rollback();
-			res.status(401).json({ msg: error });
+			return next({ msg: error });
 		}
 	})
 }
@@ -604,7 +604,7 @@ const addEmployee = (req, res, next) => {
 	const managerResult = mysql.query(managerSQL);
 	managerResult.then((rows) => {
 		if(rows[0].access != "manager" && rows[0].access != "overseer") {
-			res.status(401).json({ msg: "You are not authorized" });
+			return next({ msg: "You are not authorized" });
 		}
 	});
 
@@ -616,7 +616,7 @@ const addEmployee = (req, res, next) => {
 	let eid;
 	mysql.beginTransaction(function(err) {
 			try {
-				if(err) res.status(401).json({ msg: "Database connection failure" });
+				if(err) return next({ msg: "Database connection failure" });
 		
 				const employeeResults = mysql.query(employeeSQL);
 				employeeResults.then((rows) => {
@@ -671,11 +671,11 @@ const addEmployee = (req, res, next) => {
 				.catch((err) => {
 					console.log(err);
 					mysql.rollback();
-					res.status(401).json({ msg: "Error adding employee" });
+					return next({ msg: "Error adding employee" });
 				});
 			} catch (error) {
 				mysql.rollback();
-				res.status(401).json({ msg: "Error adding employee" });
+				return next({ msg: "Error adding employee" });
 			}
 	});
 }
@@ -726,7 +726,7 @@ const getActivity = (req, res, next) => {
 			}
 		})
 		.catch((err) => {
-			res.status(401).json({ msg: "Error getting activity" });
+			return next({ msg: "Error getting activity" });
 		});
 	
 	
@@ -754,7 +754,7 @@ exports.getActivity = getActivity;
 
 /*
 	mysql.beginTransaction(function(err) {
-		if(err) res.status(401).json({ msg: "" });
+		if(err) return next({ msg: "" });
 		const results = mysql.query(sqlStatement);
 		results.then((rows) => {
 
@@ -764,7 +764,7 @@ exports.getActivity = getActivity;
 		})
 		.catch((err) => {
 			mysql.rollback();
-			res.status(401).json({ msg: "Auth Failed" });
+			return next({ msg: "Auth Failed" });
 		});
 	});
 */
