@@ -1,0 +1,35 @@
+@import "./stylesheet.css";
+@import './form/form.css';
+
+body {
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    display: flex;
+}
+
+#login-prompt {
+    max-width: 400px;
+    height: 300px;
+}
+
+#logo-heading {
+    display: flex;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+}
+#logo-heading > p {
+    margin: 0;
+    font-size: 24px;
+    margin-bottom: 5px;
+    font-size: 35px;
+    font-weight: bold;
+    color: var(--text-primary);
+}
+#logo-heading > svg {
+    height: 70%;
+    margin-right: 15px;
+    fill: var(--accent-primary);
+}

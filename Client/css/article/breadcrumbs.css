@@ -1,0 +1,30 @@
+#breadcrumbs {
+    height: 40px;
+    padding-bottom: 25px;
+    font-weight: bold;
+    font-size: 20px;
+    align-items: center;
+    background-color: var(--elev-00);
+    user-select: none;
+}
+
+#breadcrumbs > .link {
+    margin: 0 12px;
+    cursor: pointer;
+}
+#breadcrumbs > .link.active {
+    color: var(--text-primary);
+}
+#breadcrumbs > .link:hover {
+    color: var(--text-primary);
+}
+
+#breadcrumbs > .divider {
+    margin: 0;
+    font-weight: normal;
+}
+
+#breadcrumbs > .selectors {
+    
+}
+

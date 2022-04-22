@@ -1,0 +1,53 @@
+/* Wrappers and setup */
+#modal-wrapper {
+    /*display: none;*/
+    position: absolute;
+    z-index: 4;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    padding: 40px;
+    box-sizing: border-box;
+    pointer-events: none;
+
+    transition: opacity .1s;
+}
+
+#modal {
+    width: fit-content;
+    margin: 0 auto;
+    background-color: var(--background-secondary);
+    border: 3px solid var(--border-primary);
+    border-radius: 12px;
+    padding: 10px 22px 22px 22px;
+    pointer-events: all;
+}
+
+.modal-heading {
+    height: 44px;
+    display: flex;
+    font-weight: bold;
+    font-size: 29px;
+    margin: 1px 0px 32px 0px;
+    color: var(--text-primary);
+    align-items: center;
+}
+.modal-heading > p {
+    font-weight: bold;
+    font-size: 29px;
+    margin: 0;
+    color: var(--text-primary);
+    padding-bottom: 4px;
+}
+.modal-heading > svg {
+    height: 33px;
+    fill: var(--text-secondary);
+    box-sizing: border-box;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+.modal-heading > svg:hover {
+    background-color: var(--accent-secondary);
+    fill: var(--text-primary);
+}

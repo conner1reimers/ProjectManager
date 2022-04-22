@@ -1,0 +1,36 @@
+.activity-list {
+    margin: 15px 25px;
+}
+.activity-list-heading {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    background-color: var(--background-light);
+    border-radius: 9px;
+    padding: 10px 25px;
+    border: 2px solid var(--accent-secondary);
+}
+.activity-list-entry {
+    margin: 0px 20px;
+    padding: 13px 5px;
+    font-size: 17px;
+    border-width: 0;
+    border-bottom-width: 1px;
+    border-style: solid;
+    border-image: linear-gradient(90deg, transparent 0%, var(--border-primary) 1%, var(--border-primary) 99%, transparent 100%) 1;
+}
+
+.activity-list-label { margin: 0 }
+
+.activity-list-label.project, 
+.activity-list-label.task {
+    width: 260px;
+} 
+.activity-list-label.duration {
+    width: 176px;
+} 
+
+.activity-list-label.startTime, 
+.activity-list-label.endTime {
+    width: 200px;
+} 

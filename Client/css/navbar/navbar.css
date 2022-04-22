@@ -1,0 +1,140 @@
+@import "./user-options.css";
+
+/* Wrappers and setup */
+#navbar {
+    width: 290px;
+    height: 100%;
+    background-color: var(--elev-01);
+    position: relative;
+    padding: 8px 14px 14px 14px;
+    box-sizing: border-box;
+    user-select: none;
+}
+#navbar::before {
+    content: "";
+    position: absolute;
+    background-color: transparent;
+    top: 0px;
+    right: -20px;
+    width: 20px;
+    height: 40px;
+    border-top-left-radius: 20px;
+    box-shadow: 0 -20px 0 0 var(--elev-01);
+}
+#navbar::after {
+    content: "";
+    position: absolute;
+    background-color: transparent;
+    bottom: 0px;
+    right: -20px;
+    width: 20px;
+    height: 40px;
+    border-top-right-radius: 20px;
+    box-shadow: 0 -20px 0 0 var(--elev-01);
+    transform: rotate(180deg);
+}
+
+.navbar-tab-wrapper {
+    width: 100%;
+    overflow-y: auto;
+    margin-bottom: 12px;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+.navbar-tab-wrapper::-webkit-scrollbar { display: none; }
+
+
+
+/* Tabs */
+.navbar-tab-group {
+    width: 100%;
+    min-height: 114px;
+    box-sizing: border-box;
+    border: 3px solid var(--border-secondary);
+    border-radius: 14px;
+    margin: 10px 0;
+}
+
+.navbar-tab-group > .heading-tab {
+    color: var(--text-primary);
+    fill: var(--text-primary);
+    background-color: transparent !important;
+    cursor: default !important;
+}
+
+.navbar-tab {
+    cursor: pointer;
+    margin: 10px 8px;
+    min-height: 44px;
+    align-items: center;
+    border-radius: 8px;
+    padding: 0 4px;
+    color: var(--text-secondary);
+    fill: var(--text-secondary);
+    box-sizing: border-box;
+    font-size: 18px;
+
+    transition: fill .1s, color .1s, background-color .1s;
+}
+.navbar-tab.active {
+    color: var(--text-primary) !important;
+    fill: var(--text-primary) !important;
+    background-color: var(--accent-secondary) !important;
+}
+.navbar-tab:hover {
+    color: var(--text-primary);
+    fill: var(--text-primary);
+    background-color: var(--background-select);
+}
+
+.navbar-tab > .icon{
+    width: 27px;
+    padding: 0px 10px 0px 4px;
+    fill: inherit;
+}
+
+.navbar-tab > .icon > .pfp{
+    border-radius: 4px;
+}
+
+.navbar-tab > .label{
+    margin: 0;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+
+/* Logo */
+.navbar-logo {
+    margin: 8px 0 12px 0;
+    font-size: 24px;
+    background-color: transparent !important;
+    cursor: default !important;
+    color: var(--text-primary) !important;
+    fill: var(--accent-primary) !important;
+}
+
+
+
+/* User Tab */
+.navbar-user-wrapper {
+    height: 60px;
+    position: relative;
+}
+.navbar-user-menu {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    box-sizing: border-box;
+    border: 3px solid var(--accent-primary);
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+#navbar-pfp {
+
+}

@@ -1,0 +1,67 @@
+.task-card {
+    width: 49.2%;
+    background-color: var(--background-secondary);
+    border-radius: 12px;
+    padding: 13px 18px;
+    box-sizing: border-box;
+    user-select: none;
+    color: var(--text-primary);
+}
+
+.task-card-header-row {
+    margin-bottom: 6px;
+    padding-right: 4px;
+}
+.task-card-header-row > .name {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+}
+.task-card-description {
+    height: 60px;
+    font-size: 15px;
+    color: var(--text-secondary);
+    overflow: hidden;
+    margin-bottom: 24px;
+}
+.task-card-details-row {
+    column-gap: 12px;
+}
+.task-card-detail {
+    border-radius: 5px;
+    align-items: center;
+    padding: 0px 30px 0 9px;
+    height: 30px;
+    position: relative;
+    background-color: var(--background-select);
+}
+.task-card-detail.noPadding {
+    padding: 0px;
+}
+.task-card-detail.highlighted { background-color: var(--accent-secondary); }
+.task-card-detail > svg{
+    width: 17px;
+    fill: var(--text-primary);
+    margin: 2px 7px 0px 0px;
+}
+.task-card-detail > .value{
+    margin: 0;
+    font-size: 14px;
+}
+.task-card-detail > .label {
+    margin: 0;
+    position: absolute;
+    font-size: 10px;
+    top: -12px;
+    left: 3px;
+    background-color: var(--accent-secondary);
+    border-radius: 3px;
+    padding: 0px 5px;
+    border: solid 2px var(--background-secondary);
+}
+
+.task-card-detail > select {
+    background-color: var(--background-select);
+    height: 30px;
+    width: 162px;
+}

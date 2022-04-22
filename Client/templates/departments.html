@@ -1,0 +1,112 @@
+<template id="article-heading">
+    <h1 slot="heading">Article Heading</h1>
+</template>
+
+
+
+<template id="article-subheading">
+    <div class="subheading flex-row">
+        <h2 slot="label" class="clickable">Sub-heading Label</h2>
+        <svg class="context-button manager" viewBox="0 0 200 500"><circle cx="100" cy="250" r="50"/><circle cx="100" cy="125" r="50"/><circle cx="100" cy="375" r="50"/></svg>
+        <p slot="alt-text" class="alt-text-link">alt-text</p>
+    </div>
+</template>
+
+
+
+<!-- Article Carousel -->
+<template id="article-carousel">
+    <div class="carousel">
+        <svg class="carousel-next-button left" viewBox="0 0 256 512"><path d="M251.7,271.5C251.7,271.5,251.7,271.4,251.7,271.5c6.4-11.5,5.4-26.1-3.5-36.7L63,14c-11.5-13.7-32-15.5-45.8-4l0,0  c-13.7,11.5-15.5,32-4,45.8l167.7,199.9L12.5,456.4c-11.5,13.7-9.7,34.2,4,45.8l0,0c13.7,11.5,34.2,9.7,45.8-4L248,276.9  c1.3-1.5,2.3-3.1,3.3-4.7C251.4,272,251.5,271.7,251.7,271.5z"/></svg>
+        <svg class="carousel-next-button right" viewBox="0 0 256 512"><path d="M251.7,271.5C251.7,271.5,251.7,271.4,251.7,271.5c6.4-11.5,5.4-26.1-3.5-36.7L63,14c-11.5-13.7-32-15.5-45.8-4l0,0  c-13.7,11.5-15.5,32-4,45.8l167.7,199.9L12.5,456.4c-11.5,13.7-9.7,34.2,4,45.8l0,0c13.7,11.5,34.2,9.7,45.8-4L248,276.9  c1.3-1.5,2.3-3.1,3.3-4.7C251.4,272,251.5,271.7,251.7,271.5z"/></svg>
+        <div class="carousel-list flex-row"></div>
+    </div>
+</template>
+
+<template id="article-carousel-memeber-card">
+    <div class="memeber-card flex-column">
+        <img slot="pfp" src="">
+        <p slot="name" class="name">Firstname Lastname</p>
+        <div class="wrapper flex-row">
+            <p slot="role" class="role flex-grow">Manager</p>
+            <svg class="context-button manager" viewBox="0 0 200 500"><circle cx="100" cy="250" r="50"/><circle cx="100" cy="125" r="50"/><circle cx="100" cy="375" r="50"/></svg>
+        </div>
+    </div>
+</template>
+<!------------------------>
+
+
+
+<template id="article-project-list">
+
+</template>
+
+
+
+<template id="article-task-list">
+
+</template>
+
+                    
+                    
+                    <!-- Temp department page template-->
+                    <h1>Department 1 Name</h1>
+                
+                    <div class="subheading flex-row">
+                        <h2 class="clickable">Members</h2>
+                        <svg class="context-button" viewBox="0 0 200 500"><circle cx="100" cy="250" r="50"/><circle cx="100" cy="125" r="50"/><circle cx="100" cy="375" r="50"/></svg>
+                        <p class="alt-text-link popup-trigger" data-popup-trigger="test">view all</p>
+                    </div>
+                    <div class="employee-carousel">
+                        <div class="employee-carousel-next-button left">
+                            <svg class="arrow-icon rotate-180" viewBox="0 0 256 512"><path d="M251.7,271.5C251.7,271.5,251.7,271.4,251.7,271.5c6.4-11.5,5.4-26.1-3.5-36.7L63,14c-11.5-13.7-32-15.5-45.8-4l0,0  c-13.7,11.5-15.5,32-4,45.8l167.7,199.9L12.5,456.4c-11.5,13.7-9.7,34.2,4,45.8l0,0c13.7,11.5,34.2,9.7,45.8-4L248,276.9  c1.3-1.5,2.3-3.1,3.3-4.7C251.4,272,251.5,271.7,251.7,271.5z"/></svg>
+                        </div>
+                        <div class="employee-carousel-next-button right">
+                            <svg class="arrow-icon" viewBox="0 0 256 512"><path d="M251.7,271.5C251.7,271.5,251.7,271.4,251.7,271.5c6.4-11.5,5.4-26.1-3.5-36.7L63,14c-11.5-13.7-32-15.5-45.8-4l0,0  c-13.7,11.5-15.5,32-4,45.8l167.7,199.9L12.5,456.4c-11.5,13.7-9.7,34.2,4,45.8l0,0c13.7,11.5,34.2,9.7,45.8-4L248,276.9  c1.3-1.5,2.3-3.1,3.3-4.7C251.4,272,251.5,271.7,251.7,271.5z"/></svg>
+                        </div>
+                        <div class="employee-list flex-row">
+                            <div class="employee-card flex-column">
+                                <img src="">
+                                <p class="name">Jackson Heppell</p>
+                                <div class="wrapper flex-row">
+                                    <p class="role flex-grow">Manager</p>
+                                    <svg class="context-button" viewBox="0 0 200 500"><circle cx="100" cy="250" r="50"/><circle cx="100" cy="125" r="50"/><circle cx="100" cy="375" r="50"/></svg>
+                                </div>
+                            </div>
+                            <div class="employee-card"></div>
+                            <div class="employee-card"></div>
+                            <div class="employee-card"></div>
+                            <div class="employee-card"></div>
+                            <div class="employee-card"></div>
+                        </div>
+                        <div class="employee-list flex-row buffer hidden">
+                            <div class="employee-card"></div>
+                            <div class="employee-card"></div>
+                            <div class="employee-card"></div>
+                            <div class="employee-card"></div>
+                            <div class="employee-card"></div>
+                        </div>
+                    </div>
+                
+                    <div class="subheading flex-row">
+                        <h2 class="clickable">Projects</h2>
+                        <svg class="context-button" viewBox="0 0 200 500"><circle cx="100" cy="250" r="50"/><circle cx="100" cy="125" r="50"/><circle cx="100" cy="375" r="50"/></svg>
+                    </div>
+                    <div class="project-list flex-row">
+                        <div class="project-card">
+                            <p class="name">Project Name Wooah</p>
+                            <svg class="context-button" viewBox="0 0 200 500"><circle cx="100" cy="250" r="50"/><circle cx="100" cy="125" r="50"/><circle cx="100" cy="375" r="50"/></svg>
+                            <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas convallis porta augue at iaculis. Proin et ornare lectus. Integer pretium urna sed vehicula interdum. Phasellus ullamcorper urna vitae dui volutpat, sed lobortis nisl sodales. Duis malesuada sed tortor ut euismod. Duis commodo ullamcorper neque, vel vehicula justo interdum non. Sed non egestas risus, at tincidunt lectus. Nam turpis lorem, molestie sed bibendum vitae, auctor ac diam.</p>
+                            <div class="status flex-row">
+                                <p class="label">Next Deadline:</p>
+                                <p>7/13/22</p> 
+                                <div class="flex-grow"></div>
+                                <p class="label">40%</p>
+                                <div class="progress-bar"><div class="progress"></div></div>                       
+                            </div>
+                        </div>
+                        <div class="project-card"></div>
+                        <div class="project-card"></div>
+                        <div class="project-card"></div>
+                        <div class="project-card"></div>
+                    </div>

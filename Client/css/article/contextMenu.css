@@ -1,0 +1,26 @@
+.context-menu {
+    position: absolute;
+    z-index: 1;
+    min-width: 150px;
+    width: fit-content;
+    height: fit-content;
+    background-color: var(--background-primary);
+    border-radius: 9px;
+    border: 2px solid var(--accent-secondary);
+    padding: 6px 3px;
+    user-select: none;
+}
+
+.context-menu-row {
+    margin: 0px;
+    padding: 4px 8px;
+    cursor: pointer;
+    border-radius: 4px;
+
+    transition: background-color .1s, color .1s;
+}
+
+.context-menu-row:hover {
+    background-color: var(--background-select);
+    color: var(--text-primary)
+}

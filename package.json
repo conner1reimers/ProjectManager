@@ -1,0 +1,27 @@
+{
+  "dependencies": {
+    "body-parser": "^1.19.2",
+    "express": "^4.17.3",
+    "mysql": "^2.18.1",
+    "nodemailer": "^6.7.3",
+    "nodemon": "^2.0.15",
+    "socket.io": "^4.4.1"
+  },
+  "name": "cs3380-group-project",
+  "description": "Live Share Extension: https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HeppHellLiveShare/CS3380-Group-Project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HeppHellLiveShare/CS3380-Group-Project/issues"
+  },
+  "homepage": "https://github.com/HeppHellLiveShare/CS3380-Group-Project#readme"
+}

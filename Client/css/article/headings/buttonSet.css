@@ -1,0 +1,67 @@
+.heading-button-set {
+    display: flex;
+    column-gap: 7px;
+    float: right;
+}
+.heading-button {
+    --icon-background: var(--background-select);
+    user-select: none;
+    width: 30px;
+    height: 30px;
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    align-items: center;
+    fill: var(--text-secondary);
+    overflow: hidden;
+
+    transition: width .1s, opacity .1s;
+}
+.heading-button.disabled {
+    opacity: .35;
+    pointer-events: none;
+}
+.heading-button:hover {
+    --icon-background: var(--accent-secondary);
+    fill: var(--text-primary);
+}
+
+.heading-button > svg {
+    height: 100%;
+    box-sizing: border-box;
+    padding: 5px;
+    background-color: var(--icon-background);
+    border-radius: 6px;
+    transition: background-color .1s;
+    z-index: 1;
+    position: relative;
+}
+.heading-button > svg.openRight {
+    float: left;
+}
+.heading-button > svg.openLeft {
+    float: right;
+}
+
+.heading-button > p {
+    font-size: 15px;
+    height: 23px;
+    font-weight: 600;
+    padding: 0 0px 2px 10px;
+    box-sizing: border-box;
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    margin: 3px 0;
+    border-radius: 6px;
+    background-color: var(--background-select);
+    width: max-content;
+}
+.heading-button > p.openRight {
+    padding-left: 39px;
+    left: 0;
+}
+.heading-button > p.openLeft {
+    padding-right: 39px;
+    right: 0;
+}

@@ -1,0 +1,50 @@
+.department-card {
+    background-color: var(--accent-secondary);
+    border-radius: 12px;
+    width: 32.3%;
+    height: 87px;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    user-select: none;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--text-secondary);
+
+    transition: opacity .1s;
+}
+.department-card:hover {
+    /*opacity: .8;*/
+}
+
+.department-card > .name-wrapper > .name {
+    margin: 0;
+    font-size: 21px;
+    color: var(--text-primary);
+    font-weight: bold;
+}
+
+.department-card > .name-wrapper > .context-button {
+    margin-top: 3px;
+}
+.department-card > .name-wrapper > .context-button:hover {
+    background-color: var(--accent-primary) !important;
+}
+
+.department-card > .status {
+    width: 100%;
+    height: 21px;
+    align-content: center;
+    align-items: center;
+    font-size: 13px;
+    margin-top: 15px;
+}
+.department-card > .status > p {
+    margin: 0;
+}
+.department-card > .status > .divider {
+    margin: 0 9px;
+    font-weight: bold;
+}
+.department-card > .status > .count {
+    margin-right: 5px;
+}

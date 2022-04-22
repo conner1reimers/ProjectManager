@@ -1,0 +1,36 @@
+.employee-card  {
+    background-color: var(--background-secondary);
+    border-radius: 12px;
+    width: 186px;
+    height: 265px;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 14px 14px 10px 14px;
+    user-select: none;
+}
+.employee-card > .pfp {
+    width: 100%;
+    height: 0;
+    padding-top: 100%;
+    box-sizing: border-box;
+    background-color: var(--background-light);
+    background-size: contain;
+    border-radius: 8px;
+    image-rendering: -webkit-optimize-contrast;
+    margin-bottom: 8px;
+    /*background: url(/images/pfp/sample.png);*/
+}
+.employee-card > .name {
+    margin: 0px;
+    font-weight: bold;
+    font-size: 17px;
+    color: var(--text-primary);
+}
+.employee-card > .wrapper {
+    align-items: center;
+}
+.employee-card > .wrapper > .role {
+    height: 20px;
+    margin: 2px 0px;
+    font-size: 13px;
+}

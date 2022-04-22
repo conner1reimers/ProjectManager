@@ -1,0 +1,39 @@
+.selector-menu {
+    position: absolute;
+    z-index: 1;
+    min-width: 170px;
+    width: fit-content;
+    height: fit-content;
+    background-color: var(--background-primary);
+    border-radius: 9px;
+    border: 2px solid var(--accent-secondary);
+    padding: 9px 13px;
+    user-select: none;
+}
+
+.selector-menu-heading {
+    margin: 0 0 -4px 0;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.selector-menu-group {
+    margin: 12px 5px 0 5px;
+}
+.selector-menu-label {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.selector-menu-option {
+    align-items: center;
+}
+.selector-menu-option > input {
+    margin: 0 10px 0 0;
+    cursor: pointer;
+}
+.selector-menu-option > label { }
+
+

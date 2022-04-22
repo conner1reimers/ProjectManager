@@ -1,0 +1,257 @@
+*:focus {
+    outline: none;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px var(--background-primary) inset !important;
+}
+/* Remove Number input increment arrows*/
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+form {
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 25px;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    column-gap: 17px;
+}
+
+.form-element {
+    --local-background-color: var(--background-primary);
+    --local-border-color: var(--border-secondary);
+    --local-accent-color: var(--border-secondary);
+    --local-font-color: var(--text-secondary);
+    flex: 1;
+    position: relative;
+    font-size: 17px;
+}
+.form-element.focused {
+    --local-background-color: var(--accent-secondary);
+    --local-border-color: var(--accent-primary);
+    --local-accent-color: var(--accent-secondary);
+    --local-font-color: var(--accent-primary);
+}
+.form-element.error {
+    --local-border-color: var(--accent-red-primary);
+    --local-font-color: var(--accent-red-primary);
+    --local-accent-color: var(--accent-red-secondary);
+}
+
+.form-element-label {
+    pointer-events: none;
+    height: 2px;
+    padding: 0 3px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--background-primary);
+    top: 20px;
+    left: 9px;
+    transition: font-size .1s, top .1s, left .1s, padding .1s, margin .1s, color .1s;
+}
+.form-element-label.focused {
+    color: var(--local-font-color);
+    height: 2px;
+    top: 0;
+    padding: 0px 7px;
+    font-size: 12px;
+    left: 9px !important;
+    margin: 0px 0 7px 0;
+    transition: font-size .1s, top .1s, left .1s, padding .1s, margin .1s, color .1s;
+}
+.form-element-label > p {
+    margin: inherit;
+}
+
+.form-input-error {
+    color: var(--accent-red-primary);
+    pointer-events: none;
+    height: 2px;
+    padding: 0px 5px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--background-primary);
+    bottom: 0px;
+    right: 10px;
+    fill: var(--accent-red-primary);
+
+    transition: opacity .1s;
+}
+.form-input-error.invisible {
+    opacity: 0;
+}
+.form-input-error > p {
+    font-size: 12px;
+    margin: 0;
+}
+.form-input-error > svg {
+    width: 11px;
+    fill: inherit;
+    padding: 1px 4px 0 0;
+}
+
+input {
+
+}
+
+input[type="text"], input[type="number"], input[type="email"], input[type="password"], input[type="number"], input[type="date"] {
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 9px;
+    border: 2px solid var(--local-border-color);
+    height: 44px;
+    border-radius: 9px;
+    background-color: var(--background-primary) !important;
+    color: var(--text-secondary);
+    font-size: inherit;
+    font-weight: inherit;
+    font-family: inherit;
+    padding: 0px 0 3px 10px;
+    width: 100%;
+    box-sizing: border-box;
+
+    transition: border-color .1s;
+}
+input[type="text"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="password"]:focus, input[type="number"]:focus, input[type="date"]:focus, select:focus {
+    color: var(--text-primary);
+}
+
+textarea {
+    box-sizing: border-box;
+    width: 100%;
+    height: 126px;
+    resize: none;
+    border-radius: 9px;
+    border: 2px solid var(--local-border-color);
+    border-radius: 9px;
+    background-color: var(--background-primary) !important;
+    color: var(--text-secondary);
+    font-size: inherit;
+    font-weight: inherit;
+    font-family: inherit;
+    padding: 8px 10px;
+}
+
+select {
+    cursor: pointer;
+    color: var(--text-secondary);
+    font-size: inherit;
+    font-weight: inherit;
+    width: 100%;
+    height: 44px;
+    border-radius: 9px;
+    background-color: var(--background-primary);
+    border: 2px solid var(--local-border-color);
+    box-sizing: border-box;
+    padding: 0 6px;
+}
+select:disabled {
+    opacity: 1;
+}
+
+.form-button {
+    cursor: pointer;
+    color: var(--text-secondary);
+    font-size: inherit;
+    font-weight: inherit;
+    width: 100%;
+    height: 40px;
+    border-radius: 9px;
+    background-color: var(--background-primary);
+    border: 2px solid var(--local-border-color);
+    box-sizing: border-box;
+    padding: 0 6px;
+    transition: border-color .1s, background-color .1s;
+}
+.form-button[type="submit"] {
+    background-color: var(--accent-secondary);
+    border-color: var(--accent-secondary);
+}
+.form-button:hover, .form-button:focus {
+    border-color: var(--accent-primary);
+    color: var(--text-primary);
+}
+.form-button[type="submit"]:hover, .form-button[type="submit"]:focus {
+    background-color: var(--accent-secondary);
+}
+
+.form-element-padded-label {
+    position: absolute;
+    box-sizing: border-box;
+    top: 8px;
+    padding: 2px 7px;
+    left: 8px;
+    margin: 0;
+    background: var(--local-accent-color);
+    border-radius: 6px;
+    height: 28px;
+
+    transition: background-color .1s;
+}
+
+.form-element-info-msg {
+    height: 100%;
+    box-sizing: border-box;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    opacity: 0;
+    fill: transparent;
+    background: transparent;
+    border: 2px solid transparent;
+
+    transition: border .1s, background-color .1s, opacity .1s, fill .1s;
+}
+.form-element-info-msg.info {
+    background-color: var(--accent-blue-secondary);
+    border: 2px solid var(--accent-blue-primary);
+    fill: var(--accent-blue-primary);
+    opacity: 1;
+}
+.form-element-info-msg.warning {
+    background-color: var(--accent-yellow-secondary);
+    border: 2px solid var(--accent-yellow-primary);
+    fill: var(--accent-yellow-primary);
+    opacity: 1;
+}
+.form-element-info-msg.error {
+    background-color: var(--accent-red-secondary);
+    border: 2px solid var(--accent-red-primary);
+    fill: var(--accent-red-primary);
+    opacity: 1;
+}
+
+.form-element-info-msg > p {
+    color: var(--text-primary);
+    flex: 1;
+    margin: 0;
+    font-size: 16px;
+    margin-bottom: 2px;
+}
+.form-element-info-msg > svg {
+    width: 23px;
+    fill: inherit;
+    padding-right: 9px;
+}
+

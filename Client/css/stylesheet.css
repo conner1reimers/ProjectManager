@@ -1,0 +1,110 @@
+@import "./fonts.css";
+:root {
+    color-scheme: dark;
+    
+    --text-primary: #fbfbfe;
+    --text-secondary: #cfcfd8;
+
+    --border-primary: #52525e;
+    --border-secondary: #3a3944;
+
+    --background-primary: 	#15141a;
+    --background-secondary:	#1d1c23;
+    --background-light:	#23222b;
+    --background-select:	#2A2833;
+
+
+    /* Accents */
+    --accent-primary: var(--accent-pink-primary);
+    --accent-secondary: var(--accent-pink-secondary);
+    
+    --accent-green-primary: #46954a;
+    --accent-green-secondary: #1b4721;
+
+    --accent-yellow-primary: #ae7c13;
+    --accent-yellow-secondary: #593600;
+
+    --accent-orange-primary: #cc6b2c;
+    --accent-orange-secondary: #682d10;
+
+    --accent-red-primary: #e5534b;
+    --accent-red-secondary: #78191b;
+
+    --accent-pink-primary: #c96198;
+    --accent-pink-secondary: #692649;
+
+    --accent-purple-primary: #986ee2;
+    --accent-purple-secondary: #472c82;
+
+    --accent-blue-primary: #4284e4;
+    --accent-blue-secondary: #143d79;
+
+
+    /* Google Material UI Darkmode Elevations https://material.io/design/color/dark-theme.html#properties */
+    --elev-00: #15141a;
+    --elev-01: #1d1c23;  
+    --elev-02: #23222b;
+    --elev-03: #23222b;
+    --elev-04: #23222b;
+    --elev-06: #23222b;
+    --elev-08: #23222b;
+    --elev-12: #23222b;
+    --elev-16: #23222b;
+    --elev-24: #23222b;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-y: hidden;
+    overflow-x: auto;
+
+    background-color: var(--elev-00);
+    font-family: SegoeUI;
+    color: var(--text-secondary);
+}
+
+#black-foreground {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(0, 0, 0, .7);
+    z-index: 3;
+
+    transition: opacity .1s;
+}
+
+.absolute { top: 0; left: 0; position: absolute; }
+.hidden {
+    display: none !important;
+}
+.invisible {
+    opacity: 0;
+    pointer-events: none !important;
+}
+
+.rotate-180 {
+    transform: rotate(180deg);
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+.flex-column-reverse {
+    display: flex;
+    flex-direction: column-reverse;
+}
+.flex-grow { flex-grow: 1; }
+
+.line-ellipsis-overflow {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}

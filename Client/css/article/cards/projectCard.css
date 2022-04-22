@@ -1,0 +1,66 @@
+.project-card {
+    background-color: var(--background-secondary);
+    border-radius: 12px;
+    width: 49.3%;
+    height: 138px;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    user-select: none;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--text-secondary);
+
+    transition: opacity .1s;
+}
+.project-card:hover {
+    /*opacity: .8;*/
+}
+
+.project-card > .name-wrapper > .name {
+    margin: 0;
+    font-size: 21px;
+    color: var(--text-primary);
+    font-weight: bold;
+    float: left;
+}
+
+.project-card > .name-wrapper > .context-button {
+    margin-top: 3px;
+    float: right;
+}
+
+.project-card > .description {
+    margin: 10px 0;
+    height: 45px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    float: left;
+}
+
+.project-card > .status {
+    width: 100%;
+    height: 21px;
+    align-content: center;
+    align-items: center;
+}
+.project-card > .status > p {
+    margin: 0;
+    font-size: 13px;
+}
+.project-card > .status > .label {
+    margin: 0 6px 0 0;
+    font-size: 13px;
+}
+.project-card > .status > .progress-bar {
+    width: 275px;
+    margin-top: 2px;
+    height: 11px;
+    background-color: var(--background-select);
+    border-radius: 30px;
+    overflow: hidden;
+}
+.project-card > .status > .progress-bar > .progress {
+    width: 40%;
+    height: 100%;
+    background-color: var(--accent-primary);
+}
