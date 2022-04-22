@@ -478,116 +478,118 @@ const updateEmployeeManager = (req, res, next) => {
 			if(!rows[0]) return next({msg: "error getting employee"})
 			else if(rows[0].access != "manager" && rows[0].access != "overseer") {
 				return next({msg: "You do not have access to update this employee"})
-			} 
+			} else {
+				const columnMap = {
+					firstname: 'first_name',
+					lastname: 'last_name',
+					username: 'username',
+					wage: 'wage',
+					email: 'email',
+					access: 'access',
+					role: 'role'
+				}
+			
+				let employeeQuerySql = "update employees set ";
+				Object.keys(body).forEach((key, i) => {
+					if(key != "id" && key != "access" && key != "role" && key != "wage") {
+						employeeQuerySql += columnMap[key] + "='" +  body[key] + "',";
+					} else if (key === "wage") {
+						employeeQuerySql += columnMap[key] + "=" +  body[key] + ",";
+					}
+				});
+				employeeQuerySql = employeeQuerySql.substring(0, employeeQuerySql.length - 1) + " where employee_id = ?";
+			
+				let worksInQuerySql = "update works_in set ";
+				Object.keys(body).forEach((key, i) => {
+					if(key != "id" && key != "firstname" && key != "lastname" && key != "email" && key != "username" && key != "wage") {
+						worksInQuerySql += columnMap[key] + "='" +  body[key] + "',";
+					}
+				});
+				worksInQuerySql = worksInQuerySql.substring(0, worksInQuerySql.length - 1) + " where eid = ? and did = ?";
+			
+				const employeeUpdateSql = {
+					sql: employeeQuerySql,
+					values: [req.params.id]
+				};
+				const worksInUpdateSql = {
+					sql: worksInQuerySql,
+					values: [req.params.id, req.params.depId]
+				};
+			
+				mysql.beginTransaction(function(err) {
+					try {
+					
+						if(err) return next({ msg: "Database connection failure" });
+			
+						if(employeeQuerySql.length > 43 && worksInQuerySql.length > 46) {
+							const results = mysql.query(employeeUpdateSql);
+							results.then((rows) => {
+								if(rows.affectedRows === 0) {
+									throw "Failed update employee 1.";
+								}
+							})
+							.then(() => {
+								mysql.query(worksInUpdateSql)
+									.then((rows) => {
+										if(rows.affectedRows != 0) {
+											mysql.commit();
+											res.status(200).json({});
+										} else {
+											mysql.rollback();
+											res.status(500).json({ msg: "error updating employee" });
+										}
+									});
+							})
+							.catch((errr) => {
+								mysql.rollback();
+								return next({ msg: errr });
+							});
+						} else if(employeeQuerySql.length > 43) {
+							mysql.query(employeeUpdateSql)
+								.then((rows) => {
+									if(rows.affectedRows === 0) {
+										throw "Failed to update employee 2.";
+									} else {
+										mysql.commit();
+										res.status(200).json({});
+									}
+								})
+								.catch((errr) => {
+									mysql.rollback();
+									return next({ msg: errr });
+								});
+							
+						} else if (worksInQuerySql.length > 46) {
+							mysql.query(worksInUpdateSql)
+								.then((rows) => {
+									if(rows.affectedRows != 0) {
+										mysql.commit();
+										res.status(200).json({});
+									} else {
+										mysql.rollback();
+										return next({ msg: "error updating employee" });
+									}
+								})
+								.catch((errr) => {
+									mysql.rollback();
+									return next({ msg: errr });
+								});
+			
+						}
+						
+				
+						
+				
+					} catch (error) {
+						mysql.rollback();
+						return next({ msg: error });
+					}
+				})
+			}
 		})
 	
 	
-	const columnMap = {
-		firstname: 'first_name',
-		lastname: 'last_name',
-		username: 'username',
-		wage: 'wage',
-		email: 'email',
-		access: 'access',
-		role: 'role'
-	}
-
-	let employeeQuerySql = "update employees set ";
-	Object.keys(body).forEach((key, i) => {
-		if(key != "id" && key != "access" && key != "role" && key != "wage") {
-			employeeQuerySql += columnMap[key] + "='" +  body[key] + "',";
-		} else if (key === "wage") {
-			employeeQuerySql += columnMap[key] + "=" +  body[key] + ",";
-		}
-	});
-	employeeQuerySql = employeeQuerySql.substring(0, employeeQuerySql.length - 1) + " where employee_id = ?";
-
-	let worksInQuerySql = "update works_in set ";
-	Object.keys(body).forEach((key, i) => {
-		if(key != "id" && key != "firstname" && key != "lastname" && key != "email" && key != "username" && key != "wage") {
-			worksInQuerySql += columnMap[key] + "='" +  body[key] + "',";
-		}
-	});
-	worksInQuerySql = worksInQuerySql.substring(0, worksInQuerySql.length - 1) + " where eid = ? and did = ?";
-
-	const employeeUpdateSql = {
-		sql: employeeQuerySql,
-		values: [req.params.id]
-	};
-	const worksInUpdateSql = {
-		sql: worksInQuerySql,
-		values: [req.params.id, req.params.depId]
-	};
-
-	mysql.beginTransaction(function(err) {
-		try {
-		
-			if(err) return next({ msg: "Database connection failure" });
-
-			if(employeeQuerySql.length > 43 && worksInQuerySql.length > 46) {
-				const results = mysql.query(employeeUpdateSql);
-				results.then((rows) => {
-					if(rows.affectedRows === 0) {
-						throw "Failed update employee 1.";
-					}
-				})
-				.then(() => {
-					mysql.query(worksInUpdateSql)
-						.then((rows) => {
-							if(rows.affectedRows != 0) {
-								mysql.commit();
-								res.status(200).json({});
-							} else {
-								mysql.rollback();
-								res.status(500).json({ msg: "error updating employee" });
-							}
-						});
-				})
-				.catch((errr) => {
-					mysql.rollback();
-					return next({ msg: errr });
-				});
-			} else if(employeeQuerySql.length > 43) {
-				mysql.query(employeeUpdateSql)
-					.then((rows) => {
-						if(rows.affectedRows === 0) {
-							throw "Failed to update employee 2.";
-						} else {
-							mysql.commit();
-							res.status(200).json({});
-						}
-					})
-					.catch((errr) => {
-						mysql.rollback();
-						return next({ msg: errr });
-					});
-				
-			} else if (worksInQuerySql.length > 46) {
-				mysql.query(worksInUpdateSql)
-					.then((rows) => {
-						if(rows.affectedRows != 0) {
-							mysql.commit();
-							res.status(200).json({});
-						} else {
-							mysql.rollback();
-							return next({ msg: "error updating employee" });
-						}
-					})
-					.catch((errr) => {
-						mysql.rollback();
-						return next({ msg: errr });
-					});
-
-			}
-			
 	
-			
-	
-		} catch (error) {
-			mysql.rollback();
-			return next({ msg: error });
-		}
-	})
 }
 
 
