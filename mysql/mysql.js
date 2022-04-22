@@ -1,11 +1,12 @@
 const mysql       = require('mysql');
+const dbConfig       = require('../db.config');
 
 let db = {
-    host     : 'localhost',
-    user     : 'root',
-    port     : '3307',
-    database : 'testdb',
-    password : "password"
+    host     : dbConfig.HOST,
+    user     : dbConfig.USER,
+    port     : '3306',
+    database : dbConfig.DB,
+    password : dbConfig.PASSWORD
     
 };
 
