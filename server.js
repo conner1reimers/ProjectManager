@@ -20,10 +20,10 @@ app.use(express.json());
 
 
 
-// app.use('/api/project', projectsRoutes);
-// app.use('/api/department', departmentRoutes);
-// app.use('/api/employee', employeeRoutes);
-// app.use('/api/task', taskRoutes);
+app.use('/api/project', projectsRoutes);
+app.use('/api/department', departmentRoutes);
+app.use('/api/employee', employeeRoutes);
+app.use('/api/task', taskRoutes);
 
 // For all request not /api/.....
 app.get(/^\/(?!(api)).*/, async function (req, res, next) {
@@ -40,7 +40,7 @@ app.get(/^\/(?!(api)).*/, async function (req, res, next) {
 		
 		const sqlStatement = {
 			sql: query,
-			values: [cookies.SID, clientIpAddr]
+			values: [cookies.SID]
 		}
 
 		const results = await mysql.query(sqlStatement);
