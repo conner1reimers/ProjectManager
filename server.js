@@ -11,7 +11,7 @@ const parseCookies = require('./util/parseCookies');
 
 const app = express();
 
-var port = process.env.PORT || (process.argv.length > 2) ? 8080 : 80;
+let port = process.env.PORT || 5000;
 
 
 const fileOptions = { root: __dirname + "/Client" };
@@ -58,8 +58,8 @@ app.get(/^\/(?!(api)).*/, async function (req, res, next) {
 
 
 
-app.listen(3000, () => {
-	console.log('running on 3000')
+app.listen(port, () => {
+	console.log(`running on ${port}`)
 })
 
 
