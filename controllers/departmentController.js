@@ -541,32 +541,3 @@ exports.createDepartment = createDepartment;
 exports.updateDepartment = updateDepartment;
 exports.deleteDepartment = deleteDepartment;
 
-
-String.prototype.capitalize = function() {
-    return this.charAt(0).toUpperCase() + this.slice(1);
-}
-
-class DataGen {
-    static lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Porta lorem mollis aliquam ut porttitor. Tincidunt tortor aliquam nulla facilisi cras fermentum odio. Pulvinar etiam non quam lacus suspendisse faucibus. Nisl suscipit adipiscing bibendum est ultricies. Arcu dui vivamus arcu felis bibendum ut tristique et egestas. Placerat orci nulla pellentesque dignissim enim sit. Ac turpis egestas integer eget. Ut venenatis tellus in metus vulputate eu scelerisque felis. A erat nam at lectus urna duis. At imperdiet dui accumsan sit amet nulla. Sit amet mattis vulputate enim nulla aliquet porttitor lacus. Et odio pellentesque diam volutpat commodo sed egestas. Mattis molestie a iaculis at erat pellentesque adipiscing. Nunc scelerisque viverra mauris in aliquam. Enim nec dui nunc mattis. Suspendisse faucibus interdum posuere lorem ipsum dolor sit. Etiam tempor orci eu lobortis elementum nibh tellus molestie. Semper feugiat nibh sed pulvinar proin gravida hendrerit lectus a. Non consectetur a erat nam at lectus urna. Rutrum tellus pellentesque eu tincidunt tortor aliquam nulla facilisi. Nullam eget felis eget nunc lobortis mattis aliquam faucibus. Sit amet risus nullam eget felis eget nunc lobortis. Lacus sed viverra tellus in hac habitasse. Justo laoreet sit amet cursus sit. Donec ultrices tincidunt arcu non sodales neque sodales. Est lorem ipsum dolor sit amet consectetur adipiscing. Odio eu feugiat pretium nibh. In dictum non consectetur a erat nam at lectus urna. Convallis a cras semper auctor. Duis tristique sollicitudin nibh sit amet. Pulvinar mattis nunc sed blandit libero volutpat sed. Massa vitae tortor condimentum lacinia quis vel eros. Elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at augue. Fames ac turpis egestas maecenas pharetra convallis posuere morbi. Erat nam at lectus urna duis convallis convallis tellus. Libero nunc consequat interdum varius. Diam maecenas ultricies mi eget mauris pharetra et ultrices neque. Felis eget nunc lobortis mattis aliquam faucibus purus in massa. Mi eget mauris pharetra et ultrices neque. Etiam non quam lacus suspendisse faucibus interdum posuere. Tincidunt vitae semper quis lectus nulla at volutpat. Quisque id diam vel quam elementum pulvinar etiam. Mi quis hendrerit dolor magna eget est. Cursus mattis molestie a iaculis. Ut venenatis tellus in metus vulputate eu scelerisque. Sed risus pretium quam vulputate dignissim suspendisse in est. In ornare quam viverra orci. Duis ultricies lacus sed turpis tincidunt id aliquet. Dictum fusce ut placerat orci nulla pellentesque. Augue ut lectus arcu bibendum at varius vel pharetra. Semper auctor neque vitae tempus quam. Pharetra pharetra massa massa ultricies mi quis hendrerit. In est ante in nibh. Est ante in nibh mauris cursus. Consequat ac felis donec et odio. A erat nam at lectus urna. Felis donec et odio pellentesque diam. Lorem mollis aliquam ut porttitor. Rhoncus dolor purus non enim praesent. Pellentesque nec nam aliquam sem et tortor consequat. Condimentum mattis pellentesque id nibh. Suspendisse sed nisi lacus sed viverra tellus in hac. Hendrerit gravida rutrum quisque non tellus orci ac auctor. Enim ut tellus elementum sagittis vitae. Nisi est sit amet facilisis magna etiam tempor. Sed velit dignissim sodales ut. Mauris vitae ultricies leo integer malesuada. Quis imperdiet massa tincidunt nunc pulvinar sapien et ligula ullamcorper. Nec dui nunc mattis enim ut. Elit duis tristique sollicitudin nibh sit amet. Egestas erat imperdiet sed euismod nisi. Convallis tellus id interdum velit. Diam maecenas sed enim ut sem viverra aliquet eget. Commodo viverra maecenas accumsan lacus vel. Ullamcorper malesuada proin libero nunc consequat interdum varius sit amet. Lectus nulla at volutpat diam ut venenatis. Duis at consectetur lorem donec. Lacinia at quis risus sed vulputate odio ut enim. Id diam vel quam elementum pulvinar.'.toLowerCase().replaceAll(/[,\.]+/g, '').split(' ');
-    static hex = '0123456789abcdef';
-    
-    static random(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
-    static word() { return this.lorem[this.random(0, this.lorem.length - 1)]; }
-    static phrase(len) {
-        let str = '';
-        for(let i=0; i<len; i++)
-            str += this.word() + ' ';
-        return str.capitalize();
-    }
-
-    static name() {
-        return this.word().capitalize() + ' ' + this.word().capitalize();
-    }
-
-    static hexNumber(len) {
-        let str = '';
-        for(let i=0; i<len; i++)
-            str += this.hex[this.random(0, 15)];
-        return str;
-    }
-}

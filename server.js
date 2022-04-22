@@ -10,7 +10,6 @@ const mysql = require('./mysql/mysql.js');
 const parseCookies = require('./util/parseCookies');
 
 const app = express();
-var server = require('http').Server(app);
 
 var port = process.env.PORT || (process.argv.length > 2) ? 8080 : 80;
 
@@ -21,10 +20,10 @@ app.use(express.json());
 
 
 
-app.use('/api/project', projectsRoutes);
-app.use('/api/department', departmentRoutes);
-app.use('/api/employee', employeeRoutes);
-app.use('/api/task', taskRoutes);
+// app.use('/api/project', projectsRoutes);
+// app.use('/api/department', departmentRoutes);
+// app.use('/api/employee', employeeRoutes);
+// app.use('/api/task', taskRoutes);
 
 // For all request not /api/.....
 app.get(/^\/(?!(api)).*/, async function (req, res, next) {
@@ -59,9 +58,9 @@ app.get(/^\/(?!(api)).*/, async function (req, res, next) {
 
 
 
-server.listen(port, function(){
-	console.log('listening on *:' + port);
-});
+app.listen(3000, () => {
+	console.log('running on 3000')
+})
 
 
 

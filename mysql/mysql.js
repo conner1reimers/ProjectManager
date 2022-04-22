@@ -1,9 +1,9 @@
 const mysql       = require('mysql');
 
 let db = {
-    host     : '127.0.0.1',
+    host     : 'localhost',
     user     : 'root',
-    port     : '3306',
+    port     : '3307',
     database : 'testdb',
     password : "password"
     
