@@ -11,8 +11,11 @@ export const SfTemplates = {
                 { type: SfElements.TextInput, params: ['lastname', 'Lastname'] }
             ]},
             { elements: [ 
-                { type: SfElements.TextInput, params: ['email', 'Email Address', { width: '55%' }] },
+                { type: SfElements.TextInput, params: ['email', 'Email Address', { width: '100%' }] },
+            ]},
+            { elements: [ 
                 { type: SfElements.TextInput, params: ['username', 'Username'] }, 
+                { type: SfElements.TextInput, params: ['password', 'password'] }, 
             ]},
             { elements: [ 
                 { type: SfElements.Dropdown, params: ['department', 'Department',

@@ -84,12 +84,14 @@ const account = (req, res, next) => {
 
 
 const createEmployee = async (req, res, next) => {
-	const {firstname, lastname, role, wage} = req.body;
+	const {firstname, lastname, role, wage, password} = req.body;
 	const depID = req.params.depID
 	const username = req.body.username.toLowerCase();
 	const email = req.body.email.toLowerCase();
 	const managerID = req.eid;
 	let eid;
+
+	console.log(req.body)
 
 	const managerSQL = {
 		sql: "select * from works_in where eid = ? and did = ?",
@@ -104,8 +106,8 @@ const createEmployee = async (req, res, next) => {
 	});
 
 	const employeeSQL = {
-		sql: "INSERT INTO employees (first_name, last_name, username, wage, email) VALUES (?, ?, ?, ?, ?)",
-		values: [firstname, lastname, username, wage, email]
+		sql: "INSERT INTO employees (first_name, last_name, username, password, wage, email) VALUES (?, ?, ?, ?, ?, ?)",
+		values: [firstname, lastname, username, password, wage, email]
 	}
 
 
@@ -378,40 +380,42 @@ const deleteEmployee = (req, res, next) => {
 		if(rows.length >= 1) {
 			if(rows[0].access != "manager" && rows[0].access != "overseer") {
 				return next({ msg: "Not authorized to delete employee" });	
+			} else {
+				if(req.body.departmentOnly) {
+					const employeeSQL = {
+						sql: "delete from works_in where eid = ? and did = ?",
+						values: [req.body.id, req.params.depId]
+					};
+					mysql.query(employeeSQL)
+						.then((rows) => {
+							if(rows.affectedRows != 0) {
+								res.status(200).json({});
+							} else {
+								return next({ msg: "error deleting employee from department" });
+							}
+						});
+				} else {
+					const employeeSQL = {
+						sql: "update employees set is_deleted = 1 where employee_id = ?",
+						values: [req.body.id]
+					};
+				
+					mysql.query(employeeSQL)
+					.then((rows) => {
+						if(rows.affectedRows != 0) {
+							res.status(200).json({});
+						} else {
+							return next({ msg: "error deleting employee" });
+						}
+					});
+				}
 			}
 		} else {
 			return next({ msg: "Unable to verify authority" });	
 		}
 	});
 
-	if(req.body.departmentOnly) {
-		const employeeSQL = {
-			sql: "delete from works_in where eid = ? and did = ?",
-			values: [req.body.id, req.params.depId]
-		};
-		mysql.query(employeeSQL)
-			.then((rows) => {
-				if(rows.affectedRows != 0) {
-					res.status(200).json({});
-				} else {
-					return next({ msg: "error deleting employee from department" });
-				}
-			});
-	} else {
-		const employeeSQL = {
-			sql: "update employees set is_deleted = 1 where employee_id = ?",
-			values: [req.body.id]
-		};
 	
-		mysql.query(employeeSQL)
-		.then((rows) => {
-			if(rows.affectedRows != 0) {
-				res.status(200).json({});
-			} else {
-				return next({ msg: "error deleting employee" });
-			}
-		});
-	}
 }
 
 
@@ -591,7 +595,7 @@ const updateEmployeeManager = (req, res, next) => {
 
 
 const addEmployee = (req, res, next) => {
-	const {firstname, lastname, role, wage, department, access} = req.body;
+	const {firstname, lastname, role, wage, department, password, access} = req.body;
 	const username = req.body.username.toLowerCase();
 	const email = req.body.email.toLowerCase();
 
@@ -608,8 +612,8 @@ const addEmployee = (req, res, next) => {
 	});
 
 	const employeeSQL = {
-		sql: "INSERT INTO employees (first_name, last_name, username, wage, email) VALUES (?, ?, ?, ?, ?)",
-		values: [firstname, lastname, username, wage, email]
+		sql: "INSERT INTO employees (first_name, last_name, username, password, wage, email) VALUES (?, ?, ?, ?, ?, ?)",
+		values: [firstname, lastname, username, password, wage, email]
 	}
 
 	let eid;
@@ -625,8 +629,8 @@ const addEmployee = (req, res, next) => {
 				})
 
 				const newSQL = {
-					sql: "select employee_id from employees where username = ? and email = ?",
-					values: [username, email]
+					sql: "select employee_id from employees where username = ?",
+					values: [username]
 				}
 
 				mysql.query(newSQL)
