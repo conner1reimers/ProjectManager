@@ -25,10 +25,9 @@ module.exports = (req, res, next) => {
                 return res.status(403).json({
                     message: 'You are unauthorized'
                 });
-            }
-                
-            else {
+            }else {
                 req.eid = rows[0].eid;
+                console.log("auth success")
                 next();
             }
         }).catch((err) => {

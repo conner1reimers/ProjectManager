@@ -742,10 +742,12 @@ const logout = (req, res, next) => {
 		.then((rows) => {
 			if(rows && rows.affectedRows != 0) {
 				res.clearCookie("SID");
+				console.log('logout success')
 				res.status(200).json({msg: "cookie cleared"});
 			} else throw "theres a problem"
 		})
 		.catch((err) => {
+			console.log(err)
 			return next(err);
 		})
 		
@@ -756,6 +758,13 @@ const logout = (req, res, next) => {
 	
 }
 
+const signup = (req, res, next) => { 
+
+	if(req.body.password.length < 6 || req.body.username.length < 6) {
+		
+	}
+}
+
 exports.getDeadlines = getDeadlines;
 exports.account = account;
 
@@ -763,6 +772,7 @@ exports.createEmployee = createEmployee;
 exports.auth = auth;
 exports.clockIn = clockIn;
 exports.clockOut = clockOut;
+exports.logout = logout;
 
 exports.addEmployee = addEmployee;
 exports.listEmployees = listEmployees;
@@ -771,6 +781,7 @@ exports.singleEmployee = singleEmployee;
 exports.updateEmployeeManager = updateEmployeeManager;
 exports.getActivity = getActivity;
 
+exports.signup = signup;
 
 
 

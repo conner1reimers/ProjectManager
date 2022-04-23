@@ -68,7 +68,7 @@ export class Navbar {
             
             simplePost(`/api/employee/logout/${App.user.id}`)
                 .then(res => {
-                    // window.location.reload();
+                    window.location.reload();
                 })
 
             //this.toggleUserMenu(false);       

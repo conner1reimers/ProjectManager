@@ -23,7 +23,7 @@ router.post("/update/:id/:depId", checkAuth, employeeController.updateEmployeeMa
 // router.post("/update", checkAuth, employeeController.updateEmployee);
 
 router.post("/auth", employeeController.auth)
-router.post("/logout/:eid", checkAuth, employeeController.updateEmployeeManager);
+router.post("/logout/:eid", checkAuth, employeeController.logout);
 
 router.post("/clockIn", checkAuth, employeeController.clockIn)
 router.post("/clockOut", checkAuth, employeeController.clockOut)

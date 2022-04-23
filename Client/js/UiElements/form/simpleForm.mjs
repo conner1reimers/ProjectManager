@@ -30,45 +30,51 @@ export class SimpleForm {
     static simpleSubmit(evt, form, postPath, dataPreProccess, onSubmit) {
         
         evt.preventDefault();
-        console.log(evt)
-        const formData = new FormData(evt.target);
-        const jsonBody = {};
-        for(let [key, value] of formData.entries()) {
-            try {
-                jsonBody[key] = JSON.parse(value);
-            } catch {
-                jsonBody[key] = value;
+        console.log()
+        if(evt.submitter.id != 'signup') {
+            const formData = new FormData(evt.target);
+            const jsonBody = {};
+            for(let [key, value] of formData.entries()) {
+                try {
+                    jsonBody[key] = JSON.parse(value);
+                } catch {
+                    jsonBody[key] = value;
+                }
             }
+    
+            if(dataPreProccess)
+                dataPreProccess(jsonBody);
+        
+            simplePost(postPath, jsonBody)
+                .then(async (res) =>  { 
+                    return {status: res.status, data: await res.json()};
+                })
+                .then(res => {
+                    if(res.status === 200) {
+                        if(onSubmit)
+                            onSubmit();
+                        else {  // Default success evt
+                            softReload();
+                        }
+                    } else {
+                        console.log(res.data)
+                        Object.keys(res.data).forEach((key) => {
+                            if(key === 'msg' && form.content.submitMsg)
+                                form.content.submitMsg.setMessage(res.data[key]);
+                            else if(form.content[key])
+                                form.content[key].setError(res.data[key]);
+                        });
+                    }
+                })
+                .catch(err => {
+                    console.log(err)
+                    loginForm.content.signInMsg.setMessage('Unexpected sign in error');
+                });
+        } else {
+            
         }
 
-        if(dataPreProccess)
-            dataPreProccess(jsonBody);
-    
-        simplePost(postPath, jsonBody)
-            .then(async (res) =>  { 
-                return {status: res.status, data: await res.json()};
-            })
-            .then(res => {
-                if(res.status === 200) {
-                    if(onSubmit)
-                        onSubmit();
-                    else {  // Default success evt
-                        softReload();
-                    }
-                } else {
-                    console.log(res.data)
-                    Object.keys(res.data).forEach((key) => {
-                        if(key === 'msg' && form.content.submitMsg)
-                            form.content.submitMsg.setMessage(res.data[key]);
-                        else if(form.content[key])
-                            form.content[key].setError(res.data[key]);
-                    });
-                }
-            })
-            .catch(err => {
-                console.log(err)
-                loginForm.content.signInMsg.setMessage('Unexpected sign in error');
-            });
+        
 
     }
 
@@ -314,7 +320,8 @@ export class SfButton extends SfElement {
                 'button': { 
                     innerHTML: label, 
                     type: options.type ? options.type : 'button', 
-                    events: Object.assign({ 'focus': this.onFocus.bind(this), 'blur': this.onBlur.bind(this) }, options.events)
+                    events: Object.assign({ 'focus': this.onFocus.bind(this), 'blur': this.onBlur.bind(this) }, options.events),
+                    id: options.id ? options.id : ''
                 } 
             } 
         );

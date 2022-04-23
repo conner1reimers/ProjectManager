@@ -10,7 +10,8 @@ const loginTemplate = {
             options: { style: { paddingTop: '10px'} },
             elements: [ 
                 { type: SfElements.InfoMsg, params: ['signInMsg', ''] },
-                { type: SfElements.Button, params: ['signIn', 'Sign In', { width: '22%', type: 'submit' }] }
+                { type: SfElements.Button, params: ['signIn', 'Sign In', { width: '22%', type: 'submit' }] },
+                // { type: SfElements.Button, params: ['signUp', 'Sign Up', { width: '22%', type: 'submit', id: 'signup' }] }
             ]
         }
     ]
