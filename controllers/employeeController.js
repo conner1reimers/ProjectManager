@@ -196,6 +196,7 @@ const auth = (req, res, next) => {
 		sql: query,
 		values: [username, password]
 	};
+	
 	let authError = false;
 	mysql.beginTransaction(function(err) {
 
@@ -209,16 +210,15 @@ const auth = (req, res, next) => {
 		})
 
 		.then(() => {
-			const clientIpAddr = req.socket.remoteAddress.substring(7);
 			let cookieAuthToken;
-			const cookieQuery = "INSERT INTO cookies (ip_address, eid) values (?, ?)";
+			const cookieQuery = "INSERT INTO cookies (eid) values (?)";
 			const cookieQueryValues = {
 				sql: cookieQuery,
-				values: [clientIpAddr, employeeID]
+				values: [employeeID]
 			}
 			mysql.query(cookieQueryValues)
 				.then((sqlRes) => {
-					if(sqlRes.affectedRows === 0) {
+					if(sqlRes && sqlRes.affectedRows === 0) {
 						throw "Failed to create auth token.";
 					}
 				});
@@ -232,6 +232,8 @@ const auth = (req, res, next) => {
 				.then((rows) => {
 					if(rows.length >= 1) {
 						cookieAuthToken = rows[0].auth_token;
+						console.log(cookieAuthToken)
+
 						res.cookie('SID', cookieAuthToken, {expires: new Date(Date.now() + 1296000000)}) // setting cookie to expire in 15 days
 						mysql.commit();
 						res.status(200).json({});

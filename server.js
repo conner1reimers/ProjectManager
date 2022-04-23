@@ -45,7 +45,6 @@ app.use('/api/task', taskRoutes);
 
 // For all request not /api/.....
 app.get(/^\/(?!(api)).*/, async function (req, res, next) {
-	const clientIpAddr = req.socket.remoteAddress.substring(7);
     const cookies = parseCookies(req.headers.cookie);
 
 	let authError = false;
@@ -63,7 +62,6 @@ app.get(/^\/(?!(api)).*/, async function (req, res, next) {
 
 		const results = await mysql.query(sqlStatement);
 		// Was it a valid token
-		console.log(clientIpAddr)
 		if(!results[0])
 			authError = true;
 	} else
