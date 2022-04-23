@@ -197,14 +197,12 @@ const auth = (req, res, next) => {
 		values: [username, password]
 	};
 	
-	let authError = false;
 	mysql.beginTransaction(function(err) {
 
 		if(err) return next({ msg: "Database connection failure" });
 
 		const results = mysql.query(sqlStatement);
 		results.then((rows) => {
-			console.log(rows[0]);
 			if(!rows[0]) throw "The username or password entered was incorrect";
 			else employeeID = rows[0].employee_id;
 		})
@@ -275,7 +273,6 @@ const clockIn = (req, res, next) => {
 					}
 				})
 				.catch((err) => {
-					console.log(err);
 					mysql.rollback();
 					return next({ msg: "Auth Failed" });
 				});
@@ -290,12 +287,10 @@ const clockIn = (req, res, next) => {
 			values: [tid + pid, body.project ? body.project.id : 0, body.task ? body.task.id : 0, req.eid]
 		}
 		
-		console.log(sqlClockInStatement.sql);
 
 		mysql.query(sqlClockInStatement)
 			.then((rows) => {
 				if(rows.affectedRows === 0) {
-					console.log(rows)
 					throw "Failed to clock-in";
 				}
 				mysql.commit();
@@ -649,12 +644,9 @@ const addEmployee = (req, res, next) => {
 
 					mysql.query(finalSQL)
 						.then((rows) => {
-							console.log('add');
 							try {
-								console.log(`Client/image/pfp/${eid}.png`)
 								const pfp = req.body.pfp;
 								const pfpBuffer = Buffer.from(pfp, 'base64');
-								console.log(pfp)
 								console.log(`Client/images/pfp/${eid}.png`)
 								fs.writeFile(`Client/images/pfp/${eid}.png`, pfpBuffer, (err) => {
 									console.log(err);
@@ -734,6 +726,33 @@ const getActivity = (req, res, next) => {
 		});
 	
 	
+	
+}
+
+
+const logout = (req, res, next) => {
+	const cookies = req.cookies;
+
+	if(cookies.SID) {
+		const deleteCookieQuery = {
+			sql: "delete from cookies where eid = ?",
+			values: [req.eid]
+		};
+		mysql.query(deleteCookieQuery)
+		.then((rows) => {
+			if(rows && rows.affectedRows != 0) {
+				res.clearCookie("SID");
+				res.status(200).json({msg: "cookie cleared"});
+			} else throw "theres a problem"
+		})
+		.catch((err) => {
+			return next(err);
+		})
+		
+	} else {
+		res.status(200).json({});
+	}
+
 	
 }
 

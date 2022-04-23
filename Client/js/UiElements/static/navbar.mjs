@@ -65,8 +65,12 @@ export class Navbar {
         this.elements.userClockInTimeCount = document.querySelector('#navbar-clock-in-time-count');
 
         this.elements.settings = document.addEvents('#settings-tab', 'click', () => { 
-            //document.cookie = "SID=";
-            window.location.reload();
+            
+            simplePost(`/api/employee/logout/${App.user.id}`)
+                .then(res => {
+                    // window.location.reload();
+                })
+
             //this.toggleUserMenu(false);       
             //alert('Todo: user settings modal');
         });

@@ -23,6 +23,8 @@ router.post("/update/:id/:depId", checkAuth, employeeController.updateEmployeeMa
 // router.post("/update", checkAuth, employeeController.updateEmployee);
 
 router.post("/auth", employeeController.auth)
+router.post("/logout/:eid", checkAuth, employeeController.updateEmployeeManager);
+
 router.post("/clockIn", checkAuth, employeeController.clockIn)
 router.post("/clockOut", checkAuth, employeeController.clockOut)
 router.post("/delete/:depId", checkAuth, employeeController.deleteEmployee);
@@ -34,12 +36,6 @@ router.post("/activity/:id/:depId", checkAuth, employeeController.getActivity)
 
 
 //router.post("/update", employeeController.update)
-
-//! post /clockIn
-//! post /clockOut
-//! get /delete
-//! post /update
-//! get /list
 
 //~ post /transer
 //~ get /activity

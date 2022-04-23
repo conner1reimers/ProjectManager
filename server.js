@@ -4,19 +4,19 @@ const departmentRoutes     	= require('./routes/department.js');
 const projectsRoutes     	= require('./routes/projects.js');
 const employeeRoutes     	= require('./routes/employees.js');
 const taskRoutes       	    = require('./routes/task.js');
-
-
-const mysql = require('./mysql/mysql.js');
-const parseCookies = require('./util/parseCookies');
+const cookieParser 			= require('cookie-parser')
+const mysql 				= require('./mysql/mysql.js');
+const parseCookies 			= require('./util/parseCookies');
 
 const app = express();
 
-let port = process.env.PORT || 5000;
+let port = process.env.PORT || 3000;
 
 
 const fileOptions = { root: __dirname + "/Client" };
 app.use(express.static(fileOptions.root));
 app.use(express.json());
+app.use(cookieParser());
 
 app.use((req, res, next) => {
 	res.setHeader("Access-Control-Allow-Origin", "*");
@@ -38,19 +38,39 @@ app.use((req, res, next) => {
 	}
 });
 
+
+
 app.use('/api/project', projectsRoutes);
 app.use('/api/department', departmentRoutes);
 app.use('/api/employee', employeeRoutes);
 app.use('/api/task', taskRoutes);
 
+
+app.use('/favicon.ico', (req, res, next) => {
+    res.sendStatus(200);
+});
+
+app.use('/css', (req, res, next) => {
+    res.sendStatus(200);
+});
+
+app.use('/images', (req, res, next) => {
+    res.sendStatus(200);
+});
+app.use('/js', (req, res, next) => {
+    res.sendStatus(200);
+});
+
 // For all request not /api/.....
 app.get(/^\/(?!(api)).*/, async function (req, res, next) {
-    const cookies = parseCookies(req.headers.cookie);
+	console.log('hi')
+    const cookies = req.cookies;
 
 	let authError = false;
 
+
 	if(cookies.SID) {
-		const query = `	SELECT auth_token
+		const query = `SELECT auth_token
 					 	FROM cookies
 						WHERE auth_token = ?`;
 
@@ -64,11 +84,11 @@ app.get(/^\/(?!(api)).*/, async function (req, res, next) {
 		// Was it a valid token
 		if(!results[0])
 			authError = true;
+		
 	} else
 		authError = true;
 
     res.sendFile(authError ? "login.html" : "main.html", fileOptions)
-	//res.sendFile("main.html", fileOptions)
 });
 
 // SPECIAL ERROR HANDLING MIDDLEWARE FUNCTION - only runs when an error is thrown
