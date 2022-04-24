@@ -232,6 +232,11 @@ const getDetails = (req, res, next) => {
 
 
 const addProject = (req, res, next) => {
+
+    if(req.body.name.length < 3) {
+        return next({msg: "name not long enough"})
+    }
+
     const managerSqlStatement = {
 		sql: "select * from works_in where eid = ? and did = ?",
 		values: [req.eid, req.params.depId]

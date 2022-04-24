@@ -257,6 +257,9 @@ const getDetails = (req, res, next) => {
 const createDepartment = (req, res, next) => {
     // if(req.eid != req.body.manager) res.status(401).json({msg: "You don't have that access"});
 
+    if(req.body.name.length < 3) {
+        return next({msg: "name not long enough"})
+    }
     const managerSqlStatement = {
 		sql: "select * from works_in where eid = ? and did = ?",
 		values: [req.eid, req.params.depId]
