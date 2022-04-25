@@ -1,0 +1,75 @@
+https://github.com/conner1reimers/ProjectManager 
+
+https://projectmanager-db-project.herokuapp.com/
+
+Our project management app is meant to be used by a company with full access to the server and database
+
+Steps to install: 
+
+1.) Download the project from: https://github.com/conner1reimers/ProjectManager
+2.) Use the dump.sql file to import the mysql database to your server
+3.) Replace the credentials in db.config.js with your mysql database credentials that you imported
+4.) run the command: node server.js
+
+
+Triggers: 
+
+
+CREATE TRIGGER `change_project` BEFORE UPDATE ON `employees` FOR EACH ROW BEGIN
+  if old.current_activity != null and old.current_activity != new.current_activity or old.is_clocked_in = 1 and new.is_clocked_in = 0
+    then
+      insert into employee_activity (start_time, end_time, eid, pid, tid) values (old.clock_in_time, CURRENT_TIMESTAMP, old.employee_id, old.current_project, old.current_task);
+  end if;
+end
+
+
+
+CREATE TRIGGER `after_insert_task` AFTER INSERT ON `task_in_project` FOR EACH ROW UPDATE projects p SET p.total_task_count = p.total_task_count+1 
+  WHERE p.project_id = new.pid
+
+
+
+CREATE TRIGGER `tasks_BEFORE_UPDATE` BEFORE UPDATE ON `tasks` FOR EACH ROW BEGIN
+	if new.status = 'complete' and (old.status = 'todo' or old.status = 'inProgress') then
+		update projects p set p.completed_task_count = p.completed_task_count+1 where p.project_id = new.pid;
+	elseif old.status = 'complete' and (new.status = 'todo' or new.status = 'inProgress') then
+		update projects p set p.completed_task_count = p.completed_task_count-1 where p.project_id = new.pid;
+    end if;
+END
+
+
+
+
+
+
+demo instructions: URL: https://projectmanager-db-project.herokuapp.com/
+
+We will provide 2 separate accounts for testing, one with manager access and one with standard access. 
+Cookies must be enabled in your browser to test
+
+(MANAGER) Username: areilly Password: 123456789
+(STANDARD) Username: tshepard Password: 123456789
+
+1.) First, on the left side of the screen you will see the departments you manage, we have one for demonstration purposes, sales
+and marketing, click on the department
+
+2.) To add employees, sub-departments, or projects, click the big + icon above the labels
+
+3.) Inside of a project, on the tasks, click on the little clock icon to make that task and project your "Current" task and project
+these will be inserted as your current task and project to the database
+
+4.) Now, when you clock in on the bottom left part of the screen you will have that information logged once you clock out (trigger)
+
+5.) Once you clock out you can find your employee activity on the main page, on your employee name click the 3 dots and click employee activity
+
+6.) with these 3 dots you can edit employees too, and the same with the 3 dots on departments, tasks, and projects
+
+
+7.) In employee activity the duration is calculated, the task and project you've been working on are tracked
+
+
+8.) Inside employee activity, tasks, and "all" projects you can filter the database results based on what you wish
+
+
+9.) When adding a task, you can change the status from "todo" "in progress" and "complete", when you change it to complete
+on the homepage the "active projects" the progress bar is increased and the percentage complete is calculated.
